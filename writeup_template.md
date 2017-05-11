@@ -91,40 +91,28 @@ The following parameters were used to train the classifier (`train.py`).
 
 I decided to search the windows adapting the function `find_cars()` shown in the course. My first step was to apply the search in the entire image, as is depicted in the image below.
 
-<p align="center">
-   <img src="./output_images/sliding_full.png" width="50%" height="5%">
-</p>
 
-Then I applied a window cropping in order to optimize the algorithm. In this way we extract hog features once and then can be sub-sampled to get all of its overlaying windows
 
+####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+
+Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some examples
 <table style="width:100%">
   <tr>
     <th>
       <p align="center">
-           <img src="./output_images/sliding_partial.png" width="60%" height="60%">
-           <br>Hog car
-      </p>
-    </th>
-    <th>
-      <p align="center">
-           <img src="./output_images/sliding_partial2.png" width="60%" height="60%">
-           <br>Hog not car
+           <img src="./output_images/sliding_full_2.png" width="70%" height="70%">
+           <br>Image1 window
       </p>
     </th>
       <th>
       <p align="center">
-           <img src="./output_images/sliding_partial3.png" width="60%" height="60%">
-           <br>Hog not car
+           <img src="./output_images/sliding_full_3.png" width="70%" height="70%">
+           <br>Image2 window
       </p>
     </th>
   </tr>
 </table>
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
-
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
-
-![alt text][image4]
 ---
 
 ### Video Implementation
@@ -140,16 +128,114 @@ I recorded the positions of positive detections in each frame of the video.  Fro
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
+
+Then I applied a hog sub-sampling window search using the techniques/functions described in the course. In this way we extract hog features once in a certain area (cropping the image and extracting the hog features once). 
+
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial_2.png" width="70%" height="70%">
+           <br>Image1 window
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial_3.png" width="70%" height="70%">
+           <br>Image2 window
+      </p>
+    </th>
+  </tr>
+</table>
+
+The code used is the practically the same shown in the course, the only thing that I changed is the `cells_per_step` defined, 1 instead of 2. This change captures better the rectangles to be drawn
+
 ### Here are six frames and their corresponding heatmaps:
 
-![alt text][image5]
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/heatmap_1.png" width="70%" height="70%">
+           <br>Heatmap 1
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/heatmap_2.png" width="70%" height="70%">
+           <br>Heatmap 2
+      </p>
+    </th>
+          <th>
+      <p align="center">
+           <img src="./output_images/heatmap_3.png" width="70%" height="70%">
+           <br>Heatmap 3
+      </p>
+    </th>
+          <th>
+      <p align="center">
+           <img src="./output_images/heatmap_4.png" width="70%" height="70%">
+           <br>Heatmap 4
+      </p>
+    </th>
+          <th>
+      <p align="center">
+           <img src="./output_images/heatmap_5.png" width="70%" height="70%">
+           <br>Heatmap 5
+      </p>
+    </th>
+          <th>
+      <p align="center">
+           <img src="./output_images/heatmap_6.png" width="70%" height="70%">
+           <br>Heatmap 6
+      </p>
+    </th>
+  </tr>
+</table>
 
 ### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/label_1.png" width="70%" height="70%">
+           <br> Output: 2
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/label_2.png" width="70%" height="70%">
+           <br>Output: 0
+       </p>
+       </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/label_3.png" width="70%" height="70%">
+           <br>Output: 1
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/label_4.png" width="70%" height="70%">
+           <br>Output: 1
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/label_5.png" width="70%" height="70%">
+           <br>Output: 2
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/label_5.png" width="70%" height="70%">
+           <br>Output: 2
+      </p>
+    </th>
+  </tr>
+</table>
 ### Here the resulting bounding boxes are drawn onto the last frame in the series:
 ![alt text][image7]
-
 
 
 ---
