@@ -131,22 +131,9 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 Then I applied a hog sub-sampling window search using the techniques/functions described in the course. In this way we extract hog features once in a certain area (cropping the image and extracting the hog features once). 
 
-<table style="width:100%">
-  <tr>
-    <th>
-      <p align="center">
-           <img src="./output_images/sliding_partial_2.png" width="70%" height="70%">
-           <br>Image1 window
-      </p>
-    </th>
-      <th>
-      <p align="center">
-           <img src="./output_images/sliding_partial_3.png" width="70%" height="70%">
-           <br>Image2 window
-      </p>
-    </th>
-  </tr>
-</table>
+<p align="center">
+  <img src="./output_images/sliding_partial.png" width="60%" height="60%">
+</p> 
 
 The code used is the practically the same shown in the course, the only thing that I changed is the `cells_per_step` defined, 1 instead of 2. This change captures better the rectangles to be drawn
 
@@ -217,7 +204,7 @@ The code used is the practically the same shown in the course, the only thing th
       <th>
       <p align="center">
            <img src="./output_images/label_4.png" width="70%" height="70%">
-           <br>Output: 1
+           <br>Output: 2
       </p>
     </th>
       <th>
@@ -228,14 +215,55 @@ The code used is the practically the same shown in the course, the only thing th
     </th>
       <th>
       <p align="center">
-           <img src="./output_images/label_5.png" width="70%" height="70%">
+           <img src="./output_images/label_6.png" width="70%" height="70%">
            <br>Output: 2
       </p>
     </th>
   </tr>
 </table>
+
+
 ### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial_1.png" width="70%" height="70%">
+           <br> Frame 1
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial_2.png" width="70%" height="70%">
+           <br>Frame 2
+       </p>
+       </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial_3.png" width="70%" height="70%">
+           <br>Frame 3
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial_4.png" width="70%" height="70%">
+           <br>Frame 4
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial_5.png" width="70%" height="70%">
+           <br>Frame 5
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial_6.png" width="70%" height="70%">
+           <br>Frame 6
+      </p>
+    </th>
+  </tr>
+</table>
 
 
 ---
