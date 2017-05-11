@@ -78,8 +78,9 @@ def find_cars(img, ystart, ystop, scale, svc, X_scaler, orient, pix_per_cell, ce
                 ytop_draw = np.int(ytop*scale)
                 win_draw = np.int(window*scale)
                 rectangles.append(((xbox_left, ytop_draw+ystart),(xbox_left+win_draw,ytop_draw+win_draw+ystart)))
-                
-    return rectangles
+                cv2.rectangle(draw_img,(xbox_left, ytop_draw+ystart),(xbox_left+win_draw,ytop_draw+win_draw+ystart),(0,0,255),6) 
+
+    return draw_img,rectangles
 
 def pipeline(image):
     filename = 'svm_model.p'
@@ -112,7 +113,7 @@ def pipeline(image):
     ystop = 656
     scale = 1.5
 
-    box_list = find_cars(image, ystart, ystop, scale, svc, X_scaler, orient, pix_per_cell, cell_per_block, spatial_size, hist_bins)
+    draw,box_list = find_cars(image, ystart, ystop, scale, svc, X_scaler, orient, pix_per_cell, cell_per_block, spatial_size, hist_bins)
     heat = np.zeros_like(image[:,:,0]).astype(np.float)
 
     # Add heat to each box in box list
@@ -130,21 +131,21 @@ def pipeline(image):
     draw_img = draw_labeled_bboxes(np.copy(image), labels)
 
     #img = find_cars2(image, ystart, ystop, scale, svc, X_scaler, orient, pix_per_cell, cell_per_block, spatial_size, hist_bins)
-    # plt.imshow(draw_img)
-    # f, ax1 = plt.subplots(1, 1, figsize=(24, 9))
-    # f.tight_layout()
-    # ax1.imshow(draw_img,cmap='brg')
-    # ax1.set_title('Original Image', fontsize=50)  
-    # plt.show()
+    plt.imshow(draw_img)
+    f, ax1 = plt.subplots(1, 1, figsize=(24, 9))
+    f.tight_layout()
+    ax1.imshow(draw_img,cmap='brg')
+    ax1.set_title('Original Image', fontsize=50)  
+    plt.show()
     return draw_img
     
     
 
 def main():
-    image = mpimg.imread('C:/Users/LPC/Documents/GitHub/CarND-Vehicle-Detection-master/test_images/test6.jpg')
+    image = mpimg.imread('C:/Users/LPC/Documents/GitHub/CarND-Vehicle-Detection-master/test_images/test5.jpg')
     pipeline(image)
     
-    # clip = VideoFileClip('test_video.mp4').fl_image(pipeline)
+    # clip = VideoFileClip('project_video.mp4').fl_image(pipeline)
     # clip.write_videofile('out_project_video.mp4', audio=False, verbose=False)
     
 if __name__ == "__main__":
