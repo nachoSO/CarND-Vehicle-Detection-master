@@ -82,7 +82,7 @@ def find_cars(img, ystart, ystop, scale, svc, X_scaler, orient, pix_per_cell, ce
 
     return draw_img,rectangles
 
-def pipeline(image):
+def pipeline(image,i):
     filename = 'svm_model.p'
     svc = pickle.load(open(filename, 'rb'))
     
@@ -124,26 +124,24 @@ def pipeline(image):
 
     # Visualize the heatmap when displaying    
     heatmap = np.clip(heat, 0, 255)
-
+    #plt.imshow(heatmap)
+    
+    #plt.show()
     # Find final boxes from heatmap using label function
     labels = label(heatmap)
-    
+    #cv2.imwrite('label_'+str(i)+'.png',labels[0])
+    plt.imshow(labels[0], cmap='gray')
+    plt.show()
     draw_img = draw_labeled_bboxes(np.copy(image), labels)
 
-    #img = find_cars2(image, ystart, ystop, scale, svc, X_scaler, orient, pix_per_cell, cell_per_block, spatial_size, hist_bins)
-    plt.imshow(draw_img)
-    f, ax1 = plt.subplots(1, 1, figsize=(24, 9))
-    f.tight_layout()
-    ax1.imshow(draw_img,cmap='brg')
-    ax1.set_title('Original Image', fontsize=50)  
-    plt.show()
     return draw_img
     
     
 
 def main():
-    image = mpimg.imread('C:/Users/LPC/Documents/GitHub/CarND-Vehicle-Detection-master/test_images/test5.jpg')
-    pipeline(image)
+    for i in range(1,6):
+        image = mpimg.imread('C:/Users/LPC/Documents/GitHub/CarND-Vehicle-Detection-master/test_images/test'+str(i)+'.jpg')
+        pipeline(image,i)
     
     # clip = VideoFileClip('project_video.mp4').fl_image(pipeline)
     # clip.write_videofile('out_project_video.mp4', audio=False, verbose=False)
