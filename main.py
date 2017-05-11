@@ -124,25 +124,28 @@ def pipeline(image,i):
 
     # Visualize the heatmap when displaying    
     heatmap = np.clip(heat, 0, 255)
-    #plt.imshow(heatmap)
+    plt.imshow(heatmap)
+    plt.show()
     
-    #plt.show()
     # Find final boxes from heatmap using label function
     labels = label(heatmap)
-    #cv2.imwrite('label_'+str(i)+'.png',labels[0])
     plt.imshow(labels[0], cmap='gray')
     plt.show()
+    
+    
     draw_img = draw_labeled_bboxes(np.copy(image), labels)
 
     return draw_img
     
     
-
+#201222
 def main():
-    for i in range(1,6):
+    for i in range(1,7):
         image = mpimg.imread('C:/Users/LPC/Documents/GitHub/CarND-Vehicle-Detection-master/test_images/test'+str(i)+'.jpg')
-        pipeline(image,i)
-    
+        draw_img=pipeline(image,i)
+        plt.imshow(draw_img)
+        plt.show()
+        #print(i)
     # clip = VideoFileClip('project_video.mp4').fl_image(pipeline)
     # clip.write_videofile('out_project_video.mp4', audio=False, verbose=False)
     
