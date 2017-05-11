@@ -30,15 +30,13 @@ The goals / steps of this project are the following:
 
 The code for this step is contained in the file called `train.py`, function `train()`.  
 
-I started by reading in all the `vehicle` and `non-vehicle` images.  Then I set up all the variables to extract the features.
+I started by reading in all the `vehicle` and `non-vehicle` images.  
 
 Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
 ![alt text][image1]
 
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
-
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=11`, `pixels_per_cell=(16, 16)` and `cells_per_block=(2, 2)`:
+Then I set up all the variables to extract the features. In the next step I explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
 <table style="width:100%">
   <tr>
@@ -56,6 +54,9 @@ Here is an example using the `YCrCb` color space and HOG parameters of `orientat
     </th>
   </tr>
 </table>
+
+In the next sections I'll explain why this parameter configuration was chosen.
+
 
 ####2. Explain how you settled on your final choice of HOG parameters.
 
@@ -84,15 +85,40 @@ The following parameters were used to train the classifier (`train.py`).
 
 ```
 
-
-
 ###Sliding Window Search
 
 ####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+I decided to search the windows adapting the function `find_cars()` shown in the course. My first step was to apply the search in the entire image, as is depicted in the image below.
 
-![alt text][image3]
+<p align="center">
+   <img src="./output_images/sliding_full.png" width="50%" height="5%">
+</p>
+
+Then I applied a window cropping in order to optimize the algorithm. In this way we extract hog features once and then can be sub-sampled to get all of its overlaying windows
+
+<table style="width:100%">
+  <tr>
+    <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial.png" width="60%" height="60%">
+           <br>Hog car
+      </p>
+    </th>
+    <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial2.png" width="60%" height="60%">
+           <br>Hog not car
+      </p>
+    </th>
+      <th>
+      <p align="center">
+           <img src="./output_images/sliding_partial3.png" width="60%" height="60%">
+           <br>Hog not car
+      </p>
+    </th>
+  </tr>
+</table>
 
 ####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
