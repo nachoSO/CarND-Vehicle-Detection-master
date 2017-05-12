@@ -93,7 +93,7 @@ Finally I searched on two scales using YCrCb 3-channel HOG features plus spatial
 
 In terms of performance, I noticed that YCrCb makes the classifier performs worst than the YUV color space, however for this project I prefered to find the best accuracy, the performance can be improved changing the HOG channel the pixels per cells... It could be interesting as a future work find the best relation between accuracy and performance playing with the parameters. 
 
-I also noticed that the HOG pixels per cell parameter kills the performance in the training and clasification, I tried to change it from 16 to 8 with the parameters depicted below and it takes six times more than using 16!!! and unfortunately the detection is worst
+I also noticed that the HOG pixels per cell parameter kills the performance in the training and clasification, I tried to change it from 16 to 8 with the parameters depicted below and it takes six times more than using 16!!! and unfortunately the detection is worst... why?
 
 ```
     color_space = 'YCrCb' # Can be RGB, HSV, LUV, HLS, YUV, YCrCb
@@ -139,18 +139,15 @@ Here's a [link to my video result](./project_video.mp4)
 
 ####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I applied a hog sub-sampling window search using the techniques/functions described in the course. The code used is the practically the same shown in the course, the only thing that I changed is the `cells_per_step` defined, 1 instead of 2. This change captures better the rectangles to be drawn.
 
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
+I recorded the positions of positive detections in each frame of the video. From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions (cropping the area and extracting the hog features once). I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap. I then assumed each blob corresponded to a vehicle. I constructed bounding boxes to cover the area of each blob detected.  
 
-
-Then I applied a hog sub-sampling window search using the techniques/functions described in the course. In this way we extract hog features once in a certain area (cropping the image and extracting the hog features once). 
+Here's an example result:
 
 <p align="center">
   <img src="./output_images/sliding_partial.png" width="60%" height="60%">
-</p> 
-
-The code used is the practically the same shown in the course, the only thing that I changed is the `cells_per_step` defined, 1 instead of 2. This change captures better the rectangles to be drawn
+</p>  
 
 ### Here are six frames and their corresponding heatmaps:
 
