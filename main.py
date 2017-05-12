@@ -36,7 +36,7 @@ def find_cars(img, ystart, ystop, scale, svc, X_scaler, orient, pix_per_cell, ce
     # 64 was the orginal sampling rate, with 8 cells and 8 pix per cell
     window = 64
     nblocks_per_window = (window // pix_per_cell) - cell_per_block + 1
-    cells_per_step = 1  # Instead of overlap, define how many cells to step
+    cells_per_step = 1 # Instead of overlap, define how many cells to step
     nxsteps = (nxblocks - nblocks_per_window) // cells_per_step
     nysteps = (nyblocks - nblocks_per_window) // cells_per_step
     
@@ -79,10 +79,9 @@ def find_cars(img, ystart, ystop, scale, svc, X_scaler, orient, pix_per_cell, ce
                 win_draw = np.int(window*scale)
                 rectangles.append(((xbox_left, ytop_draw+ystart),(xbox_left+win_draw,ytop_draw+win_draw+ystart)))
                 cv2.rectangle(draw_img,(xbox_left, ytop_draw+ystart),(xbox_left+win_draw,ytop_draw+win_draw+ystart),(0,0,255),6) 
-
     return draw_img,rectangles
 
-def pipeline(image,i):
+def pipeline(image):
     filename = 'svm_model.p'
     svc = pickle.load(open(filename, 'rb'))
     
@@ -107,7 +106,7 @@ def pipeline(image,i):
     spatial_feat = True # Spatial features on or off
     hist_feat = True # Histogram features on or off
     hog_feat = True # HOG features on or off
-    y_start_stop = [None, None] # Min and max in y to search in slide_window()                   
+    y_start_stop = [None, None] # Min and max in y to search in slide_window()     
 
     ystart = 400
     ystop = 656
@@ -124,30 +123,30 @@ def pipeline(image,i):
 
     # Visualize the heatmap when displaying    
     heatmap = np.clip(heat, 0, 255)
-    plt.imshow(heatmap)
-    plt.show()
+    # plt.imshow(heatmap)
+    # plt.show()
     
     # Find final boxes from heatmap using label function
     labels = label(heatmap)
-    plt.imshow(labels[0], cmap='gray')
-    plt.show()
+    # plt.imshow(labels[0], cmap='gray')
+    # plt.show()
     
     
     draw_img = draw_labeled_bboxes(np.copy(image), labels)
 
     return draw_img
     
-    
-#201222
+   
 def main():
-    for i in range(1,7):
-        image = mpimg.imread('C:/Users/LPC/Documents/GitHub/CarND-Vehicle-Detection-master/test_images/test'+str(i)+'.jpg')
-        draw_img=pipeline(image,i)
-        plt.imshow(draw_img)
-        plt.show()
+    # for i in range(1,7):
+        # image = mpimg.imread('C:/Users/LPC/Documents/GitHub/CarND-Vehicle-Detection-master/test_images/test'+str(i)+'.jpg')
+        # draw_img=pipeline(image,i)
+        # plt.imshow(draw_img)
+        # plt.show()
         #print(i)
-    # clip = VideoFileClip('project_video.mp4').fl_image(pipeline)
-    # clip.write_videofile('out_project_video.mp4', audio=False, verbose=False)
+        
+    clip = VideoFileClip('project_video.mp4').fl_image(pipeline)
+    clip.write_videofile('out_project_video.mp4', audio=False, verbose=False,fps=30)
     
 if __name__ == "__main__":
     main()   

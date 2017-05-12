@@ -15,8 +15,8 @@ def train():
     notcars = []
     print('Extracting features from the dataset...')
 
-    [cars.append(y) for x in os.walk('C:/Users/LPC/Documents/GitHub/kitti/vehicles') for y in glob(os.path.join(x[0], '*.png'))]
-    [notcars.append(y) for x in os.walk('C:/Users/LPC/Documents/GitHub/kitti/non-vehicles') for y in glob(os.path.join(x[0], '*.png'))]
+    [cars.append(y) for x in os.walk('./kitti/vehicles') for y in glob(os.path.join(x[0], '*.png'))]
+    [notcars.append(y) for x in os.walk('./kitti/non-vehicles') for y in glob(os.path.join(x[0], '*.png'))]
     
     #Accuracy: 0.988457207207 = YUV
     #Accuracy: 0.991272522523 = YCrCb
@@ -31,7 +31,7 @@ def train():
     spatial_feat = True # Spatial features on or off
     hist_feat = True # Histogram features on or off
     hog_feat = True # HOG features on or off
-    y_start_stop = [None, None] # Min and max in y to search in slide_window()
+    y_start_stop = [None, None] # Min and max in y to search in slide_window()     
     
     car_features = extract_features(cars, color_space=color_space, 
                             spatial_size=spatial_size, hist_bins=hist_bins, 
