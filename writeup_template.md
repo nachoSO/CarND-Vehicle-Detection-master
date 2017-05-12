@@ -287,13 +287,15 @@ The code used is the practically the same shown in the course, the only thing th
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-The pipeline approach is based on the slides shown in the course, i.e, extract features using hog sub-sampling and make predictions, then I heat to each box in box list,  then I applied a threshold to help remove false positives and finally I drawn the boxes from heatmap in the image.
+The pipeline approach is based on the slides shown in the course. The first step was extract the features using hog sub-sampling in order to  make predictions, then I added the heat to each box in a box list,  then I applied a threshold to help remove false positives and finally I drawn the boxes from heatmap in the image.
 
 Here is a list of the problems that I faced along the realization of this project:
-
+- Build the pipeline in a properly way
 - Selection of the color space orient and pixels per cell, (still not very clear what is the optimal)
+- Bound the rectangles correctly
 
-The pipeline is probably likely to fail when two cars are very close, it is necessary to bound better the bounding box!. In the same way, there could be problems when there is a car approaching from the front, as it is mentioned above it is ne
-As a future work I would like to refine and play with those parameters. 
+The pipeline is probably likely to fail when two cars are very close, it is necessary to bound better the bounding box!. In the same way, there could be problems when there is a car approaching from the front. As a future work I would like to refine and play with the classification parameters. 
+
+On the other hand, the algorithm is applied for each frame that produces a non-smooth result. I would like in the future to applied the algorithm for a group of frames and then apply the heatmap to the accumulation of frames.
  
 
