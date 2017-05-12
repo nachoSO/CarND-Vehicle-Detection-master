@@ -287,11 +287,13 @@ The code used is the practically the same shown in the course, the only thing th
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
+The pipeline approach is based on the slides shown in the course, i.e, extract features using hog sub-sampling and make predictions, then I heat to each box in box list,  then I applied a threshold to help remove false positives and finally I drawn the boxes from heatmap in the image.
+
 Here is a list of the problems that I faced along the realization of this project:
--
+
+- Selection of the color space orient and pixels per cell, (still not very clear what is the optimal)
 
 The pipeline is probably likely to fail when two cars are very close, it is necessary to bound better the bounding box!. In the same way, there could be problems when there is a car approaching from the front, as it is mentioned above it is ne
-As a future work I would like to refine and play with these parameters. 
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+As a future work I would like to refine and play with those parameters. 
+ 
 
