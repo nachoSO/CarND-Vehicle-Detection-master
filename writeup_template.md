@@ -11,12 +11,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 [image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
+
 [video1]: ./project_video.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
@@ -64,7 +59,7 @@ My final implementation is based on find the best 'accuracy' in the training pha
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-As I described in the last section, I based my approach taking into account the classifier accuracy. I tried a lot of combinations, mainly  of the color space and the # orientations, because those parameters are the most important used to characterize the features (based on my experience in the project). For instance, the accuracy playing with the color_space
+As I described in the last section, I based my approach taking into account the classifier accuracy. I tried a lot of combinations, mainly  of the color space, the # orientations and the HOG pixels per cell, because those parameters are the most important used to characterize the features (based on my experience in the project). For instance, the accuracy playing with the color_space
     #Accuracy: 0.988457207207 = YUV
     #Accuracy: 0.991272522523 = YCrCb <- color space used
     
@@ -92,21 +87,24 @@ The following parameters were used to train the classifier (`train.py`).
 I decided to search the windows adapting the function `find_cars()` shown in the course. My first step was to apply the search in the entire image, as is depicted in the image below.
 
 
-
 ####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some examples
+Finally I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result. As I mentioned above, I tried a lot of combinations, it seems that the color space is the most important parameter in order to disclose cars.
+
+In terms of performance, I noticed that YCrCb makes the classifier performs worst than the YUV color space, however for this project I prefered to find the best accuracy, the performance can be improved changing the HOG channel the pixels per cells... It could be interesting as a future work find the best relation between accuracy and performance playing with the parameters.
+
+Here are some examples:
 <table style="width:100%">
   <tr>
     <th>
       <p align="center">
-           <img src="./output_images/sliding_full_2.png" width="70%" height="70%">
+           <img src="./output_images/sliding_full2.png" width="70%" height="70%">
            <br>Image1 window
       </p>
     </th>
       <th>
       <p align="center">
-           <img src="./output_images/sliding_full_3.png" width="70%" height="70%">
+           <img src="./output_images/sliding_full3.png" width="70%" height="70%">
            <br>Image2 window
       </p>
     </th>
@@ -271,6 +269,12 @@ The code used is the practically the same shown in the course, the only thing th
 ###Discussion
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+
+Here is a list of the problems that I faced along the realization of this project:
+-
+
+The pipeline is probably likely to fail when two cars are very close, it is necessary to bound better the bounding box!. In the same way, there could be problems when there is a car approaching from the front, as it is mentioned above it is ne
+As a future work I would like to refine and play with these parameters. 
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
 
