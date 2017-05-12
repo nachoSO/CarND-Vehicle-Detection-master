@@ -12,7 +12,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 [image1]: ./examples/car_not_car.png
 
-[video1]: ./project_video.mp4
+[video1]: ./out_project_video.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -139,7 +139,7 @@ Here's a [link to my video result](./project_video.mp4)
 
 ####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I applied a hog sub-sampling window search using the techniques/functions described in the course. The code used is the practically the same shown in the course, the only thing that I changed is the `cells_per_step` defined, 1 instead of 2. This change captures better the rectangles to be drawn.
+I applied a hog sub-sampling window search using the techniques/functions described in the course. The code used is the practically the same shown in the course, the only thing that I changed is the `cells_per_step` defined, 1 instead of 2. This change captures better the rectangles to be drawn. All the code is allocated in the file `main.py` (function `pipeline()`)
 
 I recorded the positions of positive detections in each frame of the video. From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions (cropping the area and extracting the hog features once). I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap. I then assumed each blob corresponded to a vehicle. I constructed bounding boxes to cover the area of each blob detected.  
 
