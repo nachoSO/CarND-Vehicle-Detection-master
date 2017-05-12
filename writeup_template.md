@@ -91,7 +91,24 @@ I decided to search the windows adapting the function `find_cars()` shown in the
 
 Finally I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result. As I mentioned above, I tried a lot of combinations, it seems that the color space is the most important parameter in order to disclose cars.
 
-In terms of performance, I noticed that YCrCb makes the classifier performs worst than the YUV color space, however for this project I prefered to find the best accuracy, the performance can be improved changing the HOG channel the pixels per cells... It could be interesting as a future work find the best relation between accuracy and performance playing with the parameters.
+In terms of performance, I noticed that YCrCb makes the classifier performs worst than the YUV color space, however for this project I prefered to find the best accuracy, the performance can be improved changing the HOG channel the pixels per cells... It could be interesting as a future work find the best relation between accuracy and performance playing with the parameters. 
+
+I also noticed that the HOG pixels per cell parameter kills the performance in the training and clasification, I tried to change it from 16 to 8 with the parameters depicted below and it takes six times more than using 16!!! and unfortunately the detection is worst
+
+```
+    color_space = 'YCrCb' # Can be RGB, HSV, LUV, HLS, YUV, YCrCb
+    orient = 11  # HOG orientations
+    pix_per_cell = 8 # HOG pixels per cell <------------ CHANGED
+    cell_per_block = 2 # HOG cells per block
+    hog_channel = 'ALL' # Can be 0, 1, 2, or "ALL"
+    spatial_size = (32, 32) # Spatial binning dimensions
+    hist_bins = 32    # Number of histogram bins
+    spatial_feat = True # Spatial features on or off
+    hist_feat = True # Histogram features on or off
+    hog_feat = True # HOG features on or off
+    y_start_stop = [None, None] # Min and max in y to search in slide_window()
+
+```
 
 Here are some examples:
 <table style="width:100%">
