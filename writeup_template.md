@@ -288,11 +288,11 @@ The pipeline approach is based on the slides shown in the course. The first step
 
 Here is a list of the problems that I faced along the realization of this project:
 - Build the pipeline in a properly way
-- Selection of the color space orient and pixels per cell, (still not very clear what is the optimal)
+- Selection of the color space orient and pixels per cell, (still not very clear which is the optimal)
 - Bound the rectangles correctly
 
 The pipeline is probably likely to fail when two cars are very close, it is necessary to bound better the bounding box!. In the same way, there could be problems when there is a car approaching from the front. As a future work I would like to refine and play with the classification parameters. 
 
-On the other hand, the algorithm is applied for each frame that produces a non-smooth result. I would like in the future to applied the algorithm for a group of frames and then apply the heatmap to the accumulation of frames.
+On the other hand, the algorithm is applied for each frame that produces a non-smooth result. I would like in the future to apply the algorithm for a group of frames and then apply the heatmap to the accumulation of frames.
  
 
